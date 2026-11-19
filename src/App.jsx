@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header.jsx";
 import Navbar from "./components/Navbar.jsx";
 import StudentCard from "./components/StudentCard.jsx";
+import StudentForm from "./components/StudentForm.jsx";
 import Footer from "./components/Footer.jsx";
 import thamou from "./assets/thamou.png";
 
@@ -44,39 +45,36 @@ function App() {
   ]);
 
   const [recherche, setRecherche] = useState("");
+  const [etudiantAModifier, setEtudiantAModifier] = useState(null);
 
-  function ajouterEtudiant() {
-    const nouvelEtudiant = {
-      id: Date.now(),
-      prenom: "Yassine",
-      nom: "Ben Salem",
-      email: "yassine.bensalem" + Date.now() + "@gmail.com",
-      telephone: "+216 44 444 444",
-      filiere: "Génie Logiciel et Systèmes d'Information",
-      anneeEtude: "2ème année",
-      groupe: "GLSI 1",
-      ville: "Sfax",
-    };
-    setEtudiants((anciensEtudiants) => [...anciensEtudiants, nouvelEtudiant]);
+  function ajouterEtudiant(nouvelEtudiant) {
+    const etudiantAvecId = { ...nouvelEtudiant, id: Date.now() };
+    setEtudiants((anciensEtudiants) => [...anciensEtudiants, etudiantAvecId]);
   }
 
   function supprimerEtudiant(id) {
     setEtudiants((anciensEtudiants) =>
       anciensEtudiants.filter((etudiant) => etudiant.id !== id)
     );
+    if (etudiantAModifier && etudiantAModifier.id === id) {
+      setEtudiantAModifier(null);
+    }
   }
 
-  function modifierEtudiant(id) {
-    const nouveauPrenom = prompt("Saisir le nouveau prénom : ");
-    if (nouveauPrenom !== null && nouveauPrenom.trim() !== "") {
-      setEtudiants((anciensEtudiants) =>
-        anciensEtudiants.map((etudiant) =>
-          etudiant.id === id
-            ? { ...etudiant, prenom: nouveauPrenom.trim() }
-            : etudiant
-        )
-      );
-    }
+  function modifierEtudiant(etudiant) {
+    setEtudiantAModifier(etudiant);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function enregistrerModification(etudiantModifie) {
+    setEtudiants((anciensEtudiants) =>
+      anciensEtudiants.map((etudiant) =>
+        etudiant.id === etudiantAModifier.id
+          ? { ...etudiantModifie, id: etudiant.id }
+          : etudiant
+      )
+    );
+    setEtudiantAModifier(null);
   }
 
   const etudiantsFiltres = etudiants.filter((etudiant) =>
@@ -88,8 +86,15 @@ function App() {
       <Header />
       <Navbar />
 
+      <StudentForm
+        key={etudiantAModifier ? etudiantAModifier.id : "nouveau"}
+        onAjouterEtudiant={ajouterEtudiant}
+        etudiantAModifier={etudiantAModifier}
+        onModifierEtudiant={enregistrerModification}
+        onAnnuler={() => setEtudiantAModifier(null)}
+      />
+
       <div className="actions">
-        <button onClick={ajouterEtudiant}>+ Ajouter un étudiant</button>
         <input
           type="text"
           placeholder="Rechercher par filière..."
@@ -103,6 +108,7 @@ function App() {
           <StudentCard
             key={etudiant.id}
             id={etudiant.id}
+            etudiant={etudiant}
             prenom={etudiant.prenom}
             nom={etudiant.nom}
             email={etudiant.email}

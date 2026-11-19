@@ -4,7 +4,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* el div principal yo9of 3la toul el écran, w el footer yenzel lt7t */
 #root > div {
   min-height: 100vh;
   display: flex;
@@ -41,7 +40,94 @@ body {
   text-decoration: underline;
 }
 
-/* barre Ajouter + Recherche */
+.student-form {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #333;
+}
+
+.student-form h2 {
+  margin: 0;
+  text-align: center;
+  color: #2c3e91;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #2c3e91;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  color: #333;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #5aaef0;
+}
+
+.error-msg {
+  margin: 0;
+  color: #d93025;
+  font-size: 13px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-submit,
+.btn-cancel {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-submit {
+  background: #2c3e91;
+}
+
+.btn-submit:hover {
+  background: #22307a;
+}
+
+.btn-cancel {
+  background: #888;
+}
+
+.btn-cancel:hover {
+  background: #666;
+}
+
 .actions {
   display: flex;
   justify-content: center;
@@ -49,19 +135,6 @@ body {
   flex-wrap: wrap;
   gap: 12px;
   padding: 20px 20px 0;
-}
-
-.actions button {
-  padding: 10px 20px;
-  background: #2c3e91;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.actions button:hover {
-  background: #22307a;
 }
 
 .actions input {

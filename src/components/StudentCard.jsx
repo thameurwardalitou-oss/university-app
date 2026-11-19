@@ -33,7 +33,7 @@ function StudentCard(props) {
         {coordonneesVisibles ? "Masquer les coordonnées" : "Afficher les coordonnées"}
       </button>
       <button>Contacter</button>
-      <button onClick={() => props.onModifier(props.id)}>Modifier</button>
+      <button onClick={() => props.onModifier(props.etudiant)}>Modifier</button>
       <button onClick={() => props.onSupprimer(props.id)}>Supprimer</button>
     </div>
   );
